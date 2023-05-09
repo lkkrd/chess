@@ -60,6 +60,18 @@ class Rook(Piece):
 class Pawn(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
+        self.legal_moves = []
+        if color == 'black':
+            self.legal_moves.append((self.position[1] + 1, self.position[0]))
+            if movesMade == 0:
+                self.legal_moves.append((self.position[1] + 2, self.position[0]))
+
+        if color == 'white':
+            self.legal_moves.append((self.position[1] - 1, self.position[0]))
+            if movesMade == 0:
+                self.legal_moves.append((self.position[1] - 2, self.position[0]))
+
+
 
     # def move(self, x1, y1, x2, y2):
     #     if x1 != x2:
@@ -72,5 +84,3 @@ class Pawn(Piece):
     #     self.board.boardObj[y2][x2] = self.board.boardObj[y1][x1]
 
 
-bpawn = Pawn((0, 0), 'black', 9823, [])
-print([bpawn])

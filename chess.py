@@ -1,6 +1,7 @@
 from chessFigs import *
 # from chessNav import *
 
+#towrzenie szachownicy z figurami
 figure_codes = []
 start = 9812
 for i in range(12):
@@ -73,7 +74,6 @@ for row in board:
         if piece == wK:
             board[board.index(row)][row.index(piece)] = King(
                 (row.index(piece), 8), 'white', wK, board)
-
 
 def printBoard():
     for row in board:
