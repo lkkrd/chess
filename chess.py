@@ -100,6 +100,9 @@ def resetBoard():
 
 
 def move(x1, y1, x2, y2):
+    if board[y1][x1] == ' ':
+        print("that's a blank field!")
+        return
     currFig = board[y1][x1]
     currFig.move(x1, y1, x2, y2)
     printBoard()
