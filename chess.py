@@ -1,7 +1,7 @@
 from chessFigs import *
 # from chessNav import *
 
-#towrzenie szachownicy z figurami
+# towrzenie szachownicy z figurami
 figure_codes = []
 start = 9812
 for i in range(12):
@@ -75,11 +75,13 @@ for row in board:
             board[board.index(row)][row.index(piece)] = King(
                 (row.index(piece), 8), 'white', wK, board)
 
+
 def printBoard():
     for row in board:
         print('')
         for piece in row:
             print(piece, end=' ')
+    print()
 
 
 def resetBoard():
@@ -95,6 +97,12 @@ def resetBoard():
         ['7', wP, wP, wP, wP, wP, wP, wP, wP],
         ['8', wR, wN, wB, wQ, wK, wB, wN, wR],
     ]
+
+
+def move(x1, y1, x2, y2):
+    currFig = board[y1][x1]
+    currFig.move(x1, y1, x2, y2)
+    printBoard()
 
 
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
