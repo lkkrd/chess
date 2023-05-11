@@ -113,6 +113,15 @@ def move(y1, x1, y2, x2):
     currFig.move(y1, x1, y2, x2)
     printBoard()
 
+def take(y1, x1, y2, x2):
+    currFig = getFigure(y1, x1)
+    currFig.updateAttackMoves()
+    if (y2, x2) not in currFig.attack_moves:
+        print(f'{y2, x2} is not a field to take.')
+        return
+    currFig.take(y1, x1, y2, x2)
+    printBoard()
+
 def getFigure(y1, x1):
     if board[y1][x1] == ' ':
         return 'Blank field'
@@ -121,3 +130,6 @@ def getFigure(y1, x1):
 
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
 printBoard()
+
+# move(7, 2, 6, 2)
+# move(6, 2, 5, 2)

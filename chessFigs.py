@@ -36,6 +36,17 @@ class Piece:
         self.position = (y2, x2)
         self.updateLegalMoves()
 
+    def take(self, y1, x1, y2, x2):
+
+        # algorytm poruszania bierki
+        self.board[y2][x2] = self.board[y1][x1]
+        self.board[y1][x1] = ' '
+        self.movesMade += 1
+        self.position = (y2, x2)
+        self.updateLegalMoves()
+
+    def takes(self, y1, x1, y2, x2):
+        pass
 
 class King(Piece):
 
@@ -71,7 +82,9 @@ class Pawn(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
         self.legal_moves = []
+        self.attack_moves = []
 
+        #tworzenie legal_moves
         if self.color == 'black':
             self.legal_moves.append((self.position[1] + 1, self.position[0]))
             if movesMade == 0:
@@ -84,7 +97,14 @@ class Pawn(Piece):
                 self.legal_moves.append(
                     (self.position[1] - 2, self.position[0]))
 
-        # self.attack_moves = []
+        #tworzenie attack_moves
+        if color == 'white':
+            self.attack_moves = [(position[0] - 1, position[1] - 1), (position[0] - 1, position[1] + 1)]
+            for move in self.attack_moves:
+                if self.board[move[0]][move[1]] != ' ':
+                    continue
+                else:
+                    self.attack_moves.remove(move)
 
     # zmiana pozycji pionka
     def updateLegalMoves(self):
@@ -94,3 +114,20 @@ class Pawn(Piece):
 
         if self.color == 'white':
             self.legal_moves.append((self.position[0] - 1, self.position[1]))
+
+    def updateAttackMoves(self):
+        if self.color == 'white':
+            self.attack_moves = [(self.position[0] - 1, self.position[1] - 1), (self.position[0] - 1, self.position[1] + 1)]
+            for move in self.attack_moves:
+                if self.board[move[0]][move[1]] != ' ':
+                    continue
+                else:
+                    self.attack_moves.remove(move)
+
+        if self.color == 'black':
+            self.attack_moves = [(self.position[0] + 1, self.position[1] - 1), (self.position[0] + 1, self.position[1] + 1)]
+            for move in self.attack_moves:
+                if self.board[move[0]][move[1]] != ' ':
+                    continue
+                else:
+                    self.attack_moves.remove(move)
