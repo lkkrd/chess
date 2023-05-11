@@ -75,6 +75,12 @@ for row in board:
             board[board.index(row)][row.index(piece)] = King(
                 (row.index(piece), 8), 'white', wK, board)
 
+#zamiana self.position z (x, y) na (y, x)
+for row in board:
+    for piece in row:
+        if isinstance(piece, Piece):
+            holder = piece.position
+            piece.position = holder[1], holder[0]
 
 def printBoard():
     for row in board:
@@ -99,13 +105,18 @@ def resetBoard():
     ]
 
 
-def move(x1, y1, x2, y2):
+def move(y1, x1, y2, x2):
     if board[y1][x1] == ' ':
         print("that's a blank field!")
         return
     currFig = board[y1][x1]
-    currFig.move(x1, y1, x2, y2)
+    currFig.move(y1, x1, y2, x2)
     printBoard()
+
+def getFigure(y1, x1):
+    if board[y1][x1] == ' ':
+        return 'Blank field'
+    return board[y1][x1]
 
 
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
