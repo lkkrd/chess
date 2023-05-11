@@ -1,4 +1,5 @@
 class Piece:
+    legal_moves = []
     def __init__(
             self,  position: tuple, color: str, symbol: int, board: list, movesMade: int = 0
     ) -> None:
@@ -11,7 +12,7 @@ class Piece:
     def __str__(self):
         return chr(self.symbol)
 
-    def move(self, x1, y1, x2, y2):
+    def move(self, y1, x1, y2, x2):
 
         # stop jeśli dany obinekt nie jest zaimplemenowany
         if not hasattr(self, 'legal_moves'):
@@ -20,7 +21,7 @@ class Piece:
 
         # stop jeśli dany obiekt nie może się tam ruszyć
         if (y2, x2) not in self.legal_moves:
-            print(f"I don't think {x2, y2} is a legal move...")
+            print(f"I don't think {y2, x2} is a legal move...")
             return
 
         # stop jeśli miejsce jest zajęte
@@ -38,10 +39,13 @@ class Piece:
 
 class King(Piece):
 
-    def __init__(self, color: str, position: tuple, symbol, board: list, movesMade: int = 0) -> None:
+    def __init__(self, position: tuple, color: str, symbol, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
         self.checked = False
-
+        self.legal_moves = []
+        for i in [-1, 0, 1]:
+            for j in [-1, 0, 1]:
+                self.legal_moves.append((int(self.position[0]) + i, int(self.position[1] + j)))
 
 class Queen(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
@@ -85,7 +89,7 @@ class Pawn(Piece):
     # zmiana pozycji pionka
     def updateLegalMoves(self):
         if self.color == 'black':
-            self.legal_moves = (self.position[1] + 1, self.position[0])
+            self.legal_moves = (self.position[0] + 1, self.position[1])
 
         if self.color == 'white':
-            self.legal_moves = (self.position[1] - 1, self.position[0])
+            self.legal_moves = (self.position[0] - 1, self.position[1])
