@@ -88,8 +88,9 @@ class Pawn(Piece):
 
     # zmiana pozycji pionka
     def updateLegalMoves(self):
+        self.legal_moves = []
         if self.color == 'black':
-            self.legal_moves = (self.position[0] + 1, self.position[1])
+            self.legal_moves.append((self.position[0] + 1, self.position[1]))
 
         if self.color == 'white':
-            self.legal_moves = (self.position[0] - 1, self.position[1])
+            self.legal_moves.append((self.position[0] - 1, self.position[1]))
