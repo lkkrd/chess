@@ -47,9 +47,6 @@ class Piece:
         self.position = (y2, x2)
         self.updateLegalMoves()
 
-    def takes(self, y1, x1, y2, x2):
-        pass
-
 class King(Piece):
 
     def __init__(self, position: tuple, color: str, symbol, board: list, movesMade: int = 0) -> None:
@@ -93,8 +90,6 @@ class Knight(Piece):
                     y = int(self.position[1]) + j
                     if x in range(1, 9) and y in range(1, 9):
                         self.legal_moves.append((y, x))
-
-        pass
 
 
 class Rook(Piece):
