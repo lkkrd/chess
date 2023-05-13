@@ -1,5 +1,5 @@
 class Piece:
-    legal_moves = []
+    # legal_moves = []
     def __init__(
             self,  position: tuple, color: str, symbol: int, board: list, movesMade: int = 0
     ) -> None:
@@ -8,6 +8,8 @@ class Piece:
         self.movesMade = movesMade
         self.color = color
         self.symbol = symbol
+        self.legal_moves = []
+        self.attack_moves = []
 
     def __str__(self):
         return chr(self.symbol)
@@ -53,10 +55,11 @@ class King(Piece):
     def __init__(self, position: tuple, color: str, symbol, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
         self.checked = False
-        self.legal_moves = []
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                self.legal_moves.append((int(self.position[0]) + i, int(self.position[1] + j)))
+                x = int(self.position[0]) + i
+                y = int(self.position[1]) + j
+                self.legal_moves.append((x, y))
 
 class Queen(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
@@ -72,6 +75,27 @@ class Knight(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
 
+        #tworzenie tablicy legal_moves
+        for i in [-2, -1, 1, 2]:
+            for j in [-2, -1, 1, 2]:
+                if abs(i) != abs(j):
+                    x = int(self.position[0]) + i
+                    y = int(self.position[1]) + j
+                    if x in range(1, 9) and y in range(1, 9):
+                        self.legal_moves.append((y, x))
+
+    def updateLegalMoves(self):
+        self.legal_moves = []
+        for i in [-2, -1, 1, 2]:
+            for j in [-2, -1, 1, 2]:
+                if abs(i) != abs(j):
+                    x = int(self.position[0]) + i
+                    y = int(self.position[1]) + j
+                    if x in range(1, 9) and y in range(1, 9):
+                        self.legal_moves.append((y, x))
+
+        pass
+
 
 class Rook(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
@@ -81,8 +105,6 @@ class Rook(Piece):
 class Pawn(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
-        self.legal_moves = []
-        self.attack_moves = []
 
         #tworzenie legal_moves
         if self.color == 'black':
