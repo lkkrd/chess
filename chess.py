@@ -131,5 +131,5 @@ def getFigure(y1, x1):
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
 printBoard()
 
-# move(7, 2, 6, 2)
-# move(6, 2, 5, 2)
+# for i in range (1, 9):
+#     print(getFigure(8, i), getFigure(8, i).legal_moves)
