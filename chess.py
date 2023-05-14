@@ -1,6 +1,7 @@
 from chessFigs import *
 # from chessNav import *
 
+# towrzenie szachownicy z figurami
 figure_codes = []
 start = 9812
 for i in range(12):
@@ -74,12 +75,19 @@ for row in board:
             board[board.index(row)][row.index(piece)] = King(
                 (row.index(piece), 8), 'white', wK, board)
 
+#zamiana self.position z (x, y) na (y, x)
+for row in board:
+    for piece in row:
+        if isinstance(piece, Piece):
+            holder = piece.position
+            piece.position = holder[1], holder[0]
 
 def printBoard():
     for row in board:
         print('')
         for piece in row:
             print(piece, end=' ')
+    print()
 
 
 def resetBoard():
@@ -97,5 +105,31 @@ def resetBoard():
     ]
 
 
+def move(y1, x1, y2, x2):
+    if board[y1][x1] == ' ':
+        print("that's a blank field!")
+        return
+    currFig = board[y1][x1]
+    currFig.move(y1, x1, y2, x2)
+    printBoard()
+
+def take(y1, x1, y2, x2):
+    currFig = getFigure(y1, x1)
+    currFig.updateAttackMoves()
+    if (y2, x2) not in currFig.attack_moves:
+        print(f'{y2, x2} is not a field to take.')
+        return
+    currFig.take(y1, x1, y2, x2)
+    printBoard()
+
+def getFigure(y1, x1):
+    if board[y1][x1] == ' ':
+        return 'Blank field'
+    return board[y1][x1]
+
+
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
 printBoard()
+
+# for i in range (1, 9):
+#     print(getFigure(8, i), getFigure(8, i).legal_moves)
