@@ -58,8 +58,6 @@ class Piece:
                 self.attack_moves.remove(move)
 
 
-
-
 class King(Piece):
 
     def __init__(self, position: tuple, color: str, symbol, board: list, movesMade: int = 0) -> None:
@@ -77,14 +75,16 @@ class King(Piece):
                     continue
                 self.legal_moves.append((y, x))
 
+
 class Queen(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
         self.updateLegalMoves()
+
     def updateLegalMoves(self):
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                #case ruchu poziomego
+                # case ruchu poziomego
                 if i == 0 or j == 0:
                     for k in range(1, 8):
                         x = int(self.position[0]) + i * k
@@ -95,7 +95,7 @@ class Queen(Piece):
                         else:
                             self.legal_moves.append((y, x))
 
-        #case ruchu diagonalnego
+        # case ruchu diagonalnego
         for i in [-1, 1]:
             for j in [-1, 1]:
                 for k in range(1, 8):
@@ -146,6 +146,7 @@ class Rook(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
         self.updateLegalMoves()
+
     def updateLegalMoves(self):
         for i in [-1, 1]:
             for j in range(1, 8):
@@ -166,6 +167,7 @@ class Rook(Piece):
                 else:
                     self.legal_moves.append((y, x))
 
+
 class Pawn(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
@@ -174,38 +176,38 @@ class Pawn(Piece):
 
     def updateLegalMoves(self):
         self.legal_moves = []
+        x = self.position[0]
+        y = self.position[1]
         if self.color == 'black':
-            if self.position[0] + 1 in range (1, 9) and self.position[1] in range(1, 9):
-                self.legal_moves.append((self.position[0] + 1, self.position[1]))
+            if y + 1 in range(1, 9):
+                self.legal_moves.append(
+                    (y + 1, x))
 
         if self.color == 'white':
-            if self.position[0] - 1 in range (1, 9) and self.position[1] in range(1, 9):
-                self.legal_moves.append((self.position[0] - 1, self.position[1]))
+            if y - 1 in range(1, 9):
+                self.legal_moves.append(
+                    (y - 1, x))
 
     def updateAttackMoves(self):
-
-        #przypadki skrajnego rzędu
-        if self.position[0] == 8 and self.color == 'black':
-            self.attack_moves = []
-            return
-        if self.position[0] == 1 and self.color == 'white':
-            self.attack_moves = []
-            return
-
+        self.attack_moves = []
+        y = self.position[0]
+        x = self.position[1]
         if self.color == 'white':
-            self.attack_moves = [(self.position[0] - 1, self.position[1] - 1),
-                                 (self.position[0] - 1, self.position[1] + 1)]
+            self.attack_moves = [(y - 1, x - 1),
+                                 (y - 1, x + 1)]
             for move in self.attack_moves:
-                if self.board[move[0]][move[1]] != ' ':
-                    continue
+                if move[0] in range(1, 9) and move[1] in range(1, 9):
+                    if isinstance(self.board[move[0]][move[1]], Piece):
+                        continue
                 else:
                     self.attack_moves.remove(move)
 
         if self.color == 'black':
-            self.attack_moves = [(self.position[0] + 1, self.position[1] - 1),
-                                 (self.position[0] + 1, self.position[1] + 1)]
+            self.attack_moves = [(y + 1, x - 1),
+                                 (y + 1, x + 1)]
             for move in self.attack_moves:
-                if self.board[move[0]][move[1]] != ' ':
-                    continue
+                if move[0] in range(1, 9) and move[1] in range(1, 9):
+                    if isinstance(self.board[move[0]][move[1]], Piece):
+                        continue
                 else:
                     self.attack_moves.remove(move)
