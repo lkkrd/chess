@@ -172,21 +172,23 @@ class Pawn(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
         self.updateLegalMoves()
-        self.updateAttackMoves()
 
     def updateLegalMoves(self):
+
         self.legal_moves = []
-        x = self.position[0]
-        y = self.position[1]
+        height = self.position[0]
+        width = self.position[1]
         if self.color == 'black':
-            if y + 1 in range(1, 9):
-                self.legal_moves.append(
-                    (y + 1, x))
+            if height + 1 in range(1, 9):
+                print('updating legals for ', self.position,
+                      'appended: ', (height + 1, width))
+                self.legal_moves.append((height + 1, width))
 
         if self.color == 'white':
-            if y - 1 in range(1, 9):
-                self.legal_moves.append(
-                    (y - 1, x))
+            if height - 1 in range(1, 9):
+                print('updating legals for ', self.position,
+                      'appended: ', (height - 1, width))
+                self.legal_moves.append((height - 1, width))
 
     def updateAttackMoves(self):
         self.attack_moves = []

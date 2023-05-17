@@ -40,47 +40,48 @@ for row in board:
             # currField = board[board.index(row)][row.index(piece)]
             # currField = Pawn((row.index(piece), 2), 'black', bP, board)
             board[board.index(row)][row.index(piece)] = Pawn(
-                (row.index(piece), 2), 'black', bP, board)
+                (2, row.index(piece)), 'black', bP, board)
         if piece == wP:
             board[board.index(row)][row.index(piece)] = Pawn(
-                (row.index(piece), 7), 'white', wP, board)
+                (7, row.index(piece)), 'white', wP, board)
         if piece == bR:
             board[board.index(row)][row.index(piece)] = Rook(
-                (row.index(piece), 1), 'black', bR, board)
+                (1, row.index(piece)), 'black', bR, board)
         if piece == wR:
             board[board.index(row)][row.index(piece)] = Rook(
-                (row.index(piece), 8), 'white', wR, board)
+                (8, row.index(piece)), 'white', wR, board)
         if piece == bN:
             board[board.index(row)][row.index(piece)] = Knight(
-                (row.index(piece), 1), 'black', bN, board)
+                (1, row.index(piece)), 'black', bN, board)
         if piece == wN:
             board[board.index(row)][row.index(piece)] = Knight(
-                (row.index(piece), 8), 'white', wN, board)
+                (8, row.index(piece)), 'white', wN, board)
         if piece == bB:
             board[board.index(row)][row.index(piece)] = Bishop(
-                (row.index(piece), 1), 'black', bB, board)
+                (1, row.index(piece)), 'black', bB, board)
         if piece == wB:
             board[board.index(row)][row.index(piece)] = Bishop(
-                (row.index(piece), 8), 'white', wB, board)
+                (8, row.index(piece)), 'white', wB, board)
         if piece == bQ:
             board[board.index(row)][row.index(piece)] = Queen(
-                (row.index(piece), 1), 'black', bQ, board)
+                (1, row.index(piece)), 'black', bQ, board)
         if piece == wQ:
             board[board.index(row)][row.index(piece)] = Queen(
-                (row.index(piece), 8), 'white', wQ, board)
+                (8, row.index(piece)), 'white', wQ, board)
         if piece == bK:
             board[board.index(row)][row.index(piece)] = King(
-                (row.index(piece), 1), 'black', bK, board)
+                (1, row.index(piece)), 'black', bK, board)
         if piece == wK:
             board[board.index(row)][row.index(piece)] = King(
-                (row.index(piece), 8), 'white', wK, board)
+                (8, row.index(piece)), 'white', wK, board)
 
-#zamiana self.position z (x, y) na (y, x)
-for row in board:
-    for piece in row:
-        if isinstance(piece, Piece):
-            holder = piece.position
-            piece.position = holder[1], holder[0]
+# zamiana self.position z (x, y) na (y, x)
+# for row in board:
+#     for piece in row:
+#         if isinstance(piece, Piece):
+#             holder = piece.position
+#             piece.position = holder[1], holder[0]
+
 
 def printBoard():
     for row in board:
@@ -113,6 +114,7 @@ def move(y1, x1, y2, x2):
     currFig.move(y1, x1, y2, x2)
     printBoard()
 
+
 def take(y1, x1, y2, x2):
     currFig = getFigure(y1, x1)
     currFig.updateAttackMoves()
@@ -122,6 +124,7 @@ def take(y1, x1, y2, x2):
     currFig.take(y1, x1, y2, x2)
     printBoard()
 
+
 def getFigure(y1, x1):
     if board[y1][x1] == ' ':
         return 'Blank field'
@@ -130,6 +133,6 @@ def getFigure(y1, x1):
 
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
 printBoard()
-
-# for i in range (1, 9):
-#     print(getFigure(8, i), getFigure(8, i).legal_moves)
+for i in range(1, 9):
+    for j in [1, 2, 7, 8]:
+        print(f'{getFigure(j, i)} position: {getFigure(j, i).position}')
