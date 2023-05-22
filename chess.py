@@ -1,12 +1,12 @@
 from chessFigs import *
-# from chessNav import *
+from notation import *
 
 # towrzenie szachownicy z figurami
 figure_codes = []
 start = 9812
 for i in range(12):
     figure_codes.append(start + i)
-
+    
 bK = figure_codes[0]
 bQ = figure_codes[1]
 bR = figure_codes[2]
@@ -19,6 +19,7 @@ wR = figure_codes[8]
 wB = figure_codes[9]
 wN = figure_codes[10]
 wP = figure_codes[11]
+
 
 board = [
     [' ', '1', '2', '3', '4', '5', '6', '7', '8'],
@@ -35,52 +36,42 @@ board = [
 # zamiana wszystkich pionków na obiekty
 for row in board:
     for piece in row:
-        if piece == bP:
-            # Dlaczego to nie działa?
-            # currField = board[board.index(row)][row.index(piece)]
-            # currField = Pawn((row.index(piece), 2), 'black', bP, board)
-            board[board.index(row)][row.index(piece)] = Pawn(
-                (2, row.index(piece)), 'black', bP, board)
-        if piece == wP:
-            board[board.index(row)][row.index(piece)] = Pawn(
-                (7, row.index(piece)), 'white', wP, board)
-        if piece == bR:
-            board[board.index(row)][row.index(piece)] = Rook(
-                (1, row.index(piece)), 'black', bR, board)
-        if piece == wR:
-            board[board.index(row)][row.index(piece)] = Rook(
-                (8, row.index(piece)), 'white', wR, board)
-        if piece == bN:
-            board[board.index(row)][row.index(piece)] = Knight(
-                (1, row.index(piece)), 'black', bN, board)
-        if piece == wN:
-            board[board.index(row)][row.index(piece)] = Knight(
-                (8, row.index(piece)), 'white', wN, board)
-        if piece == bB:
-            board[board.index(row)][row.index(piece)] = Bishop(
-                (1, row.index(piece)), 'black', bB, board)
-        if piece == wB:
-            board[board.index(row)][row.index(piece)] = Bishop(
-                (8, row.index(piece)), 'white', wB, board)
-        if piece == bQ:
-            board[board.index(row)][row.index(piece)] = Queen(
-                (1, row.index(piece)), 'black', bQ, board)
-        if piece == wQ:
-            board[board.index(row)][row.index(piece)] = Queen(
-                (8, row.index(piece)), 'white', wQ, board)
-        if piece == bK:
-            board[board.index(row)][row.index(piece)] = King(
-                (1, row.index(piece)), 'black', bK, board)
-        if piece == wK:
-            board[board.index(row)][row.index(piece)] = King(
-                (8, row.index(piece)), 'white', wK, board)
-
-# zamiana self.position z (x, y) na (y, x)
-# for row in board:
-#     for piece in row:
-#         if isinstance(piece, Piece):
-#             holder = piece.position
-#             piece.position = holder[1], holder[0]
+            if piece == bP:
+                board[board.index(row)][row.index(piece)] = Pawn(
+                    (2, row.index(piece)), 'black', bP, board)
+            if piece == wP:
+                board[board.index(row)][row.index(piece)] = Pawn(
+                    (7, row.index(piece)), 'white', wP, board)
+            if piece == bR:
+                board[board.index(row)][row.index(piece)] = Rook(
+                    (1, row.index(piece)), 'black', bR, board)
+            if piece == wR:
+                board[board.index(row)][row.index(piece)] = Rook(
+                    (8, row.index(piece)), 'white', wR, board)
+            if piece == bN:
+                board[board.index(row)][row.index(piece)] = Knight(
+                    (1, row.index(piece)), 'black', bN, board)
+            if piece == wN:
+                board[board.index(row)][row.index(piece)] = Knight(
+                    (8, row.index(piece)), 'white', wN, board)
+            if piece == bB:
+                board[board.index(row)][row.index(piece)] = Bishop(
+                    (1, row.index(piece)), 'black', bB, board)
+            if piece == wB:
+                board[board.index(row)][row.index(piece)] = Bishop(
+                    (8, row.index(piece)), 'white', wB, board)
+            if piece == bQ:
+                board[board.index(row)][row.index(piece)] = Queen(
+                    (1, row.index(piece)), 'black', bQ, board)
+            if piece == wQ:
+                board[board.index(row)][row.index(piece)] = Queen(
+                    (8, row.index(piece)), 'white', wQ, board)
+            if piece == bK:
+                board[board.index(row)][row.index(piece)] = King(
+                    (1, row.index(piece)), 'black', bK, board)
+            if piece == wK:
+                board[board.index(row)][row.index(piece)] = King(
+                    (8, row.index(piece)), 'white', wK, board)
 
 
 def printBoard():
@@ -132,7 +123,9 @@ def getFigure(y1, x1):
 
 
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
+# printBoard()
+# for i in range(1, 9):
+#     for j in [1, 2, 7, 8]:
+#         print(f'{getFigure(j, i)} position: {getFigure(j, i).position}')
+
 printBoard()
-for i in range(1, 9):
-    for j in [1, 2, 7, 8]:
-        print(f'{getFigure(j, i)} position: {getFigure(j, i).position}')
