@@ -131,8 +131,9 @@ def getFigure(y1, x1):
     return board[y1][x1]
 
 
-# Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
 printBoard()
-for i in range(1, 9):
-    for j in [1, 2, 7, 8]:
-        print(f'{getFigure(j, i)} position: {getFigure(j, i).position}')
+
+# Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
+# for i in range(1, 9):
+#     for j in [1, 2, 7, 8]:
+#         print(f'{getFigure(j, i)} position: {getFigure(j, i).position}')
