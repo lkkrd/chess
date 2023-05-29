@@ -37,6 +37,8 @@ class Piece:
         self.board[y1][x1] = ' '
         self.movesMade += 1
         self.position = (y2, x2)
+        self.updateLegalMoves()
+        self.updateAttackMoves()
 
     def take(self, y1, x1, y2, x2):
 
