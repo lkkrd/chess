@@ -17,19 +17,14 @@ class Piece:
 
     def move(self, y1, x1, y2, x2):
 
-        # stop jeśli dany obinekt nie jest zaimplemenowany
-        if not hasattr(self, 'legal_moves'):
-            print('Not implemented yet!')
+        # stop jeśli miejsce jest zajęte
+        if (self.board[y2][x2]) != ' ':
+            print("You can't move there! Use 'take' method instead.")
             return
 
         # stop jeśli dany obiekt nie może się tam ruszyć
         if (y2, x2) not in self.legal_moves:
             print(f"I don't think {y2, x2} is a legal move...")
-            return
-
-        # stop jeśli miejsce jest zajęte
-        if (self.board[y2][x2]) != ' ':
-            print("You can't move there! Use 'take' method instead.")
             return
 
         # algorytm poruszania bierki
@@ -48,6 +43,7 @@ class Piece:
         self.movesMade += 1
         self.position = (y2, x2)
 
+    # jeśli nie zaimplementowane
     def updateLegalMoves(self):
         print('updateLegalMoves to be implemented')
 
@@ -66,13 +62,12 @@ class King(Piece):
         super().__init__(position, color, symbol, board, movesMade)
         self.checked = False
 
-        self.updateAttackMoves()
-
     def updateLegalMoves(self):
+        self.legal_moves = []
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                x = self.position[0] + i
-                y = self.position[1] + j
+                y = self.position[0] + i
+                x = self.position[1] + j
                 if not (x in range(1, 9) and y in range(1, 9)):
                     continue
                 self.legal_moves.append((y, x))
@@ -83,25 +78,25 @@ class Queen(Piece):
         super().__init__(position, color, symbol, board, movesMade)
 
     def updateLegalMoves(self):
+        self.legal_moves = []
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
                 # case ruchu poziomego
                 if i == 0 or j == 0:
                     for k in range(1, 8):
-                        x = self.position[0] + i * k
-                        y = self.position[1] + j * k
+                        y = self.position[0] + i * k
+                        x = self.position[1] + j * k
 
                         if not (x in range(1, 9) and y in range(1, 9)):
                             break
                         else:
                             self.legal_moves.append((y, x))
-
-        # case ruchu diagonalnego
+        # case ruchu po przekątnej
         for i in [-1, 1]:
             for j in [-1, 1]:
                 for k in range(1, 8):
-                    x = self.position[0] + i * k
-                    y = self.position[1] + j * k
+                    y = self.position[0] + i * k
+                    x = self.position[1] + j * k
 
                     if not (x in range(1, 9) and y in range(1, 9)):
                         break
@@ -114,11 +109,12 @@ class Bishop(Piece):
         super().__init__(position, color, symbol, board, movesMade)
 
     def updateLegalMoves(self):
+        self.legal_moves = []
         for i in [-1, 1]:
             for j in [-1, 1]:
                 for k in range(1, 8):
-                    x = self.position[0] + i * k
-                    y = self.position[1] + j * k
+                    y = self.position[0] + i * k
+                    x = self.position[1] + j * k
 
                     if not (x in range(1, 9) and y in range(1, 9)):
                         break
@@ -129,15 +125,14 @@ class Bishop(Piece):
 class Knight(Piece):
     def __init__(self, position: tuple, color: str, symbol: int, board: list, movesMade: int = 0) -> None:
         super().__init__(position, color, symbol, board, movesMade)
-        self.checked = False
 
     def updateLegalMoves(self):
         self.legal_moves = []
         for i in [-2, -1, 1, 2]:
             for j in [-2, -1, 1, 2]:
                 if abs(i) != abs(j):
-                    x = self.position[0] + i
-                    y = self.position[1] + j
+                    y = self.position[0] + i
+                    x = self.position[1] + j
                     if x in range(1, 9) and y in range(1, 9):
                         self.legal_moves.append((y, x))
 
@@ -147,10 +142,11 @@ class Rook(Piece):
         super().__init__(position, color, symbol, board, movesMade)
 
     def updateLegalMoves(self):
+        self.legal_moves = []
         for i in [-1, 1]:
             for j in range(1, 8):
-                x = self.position[0] + i * j
-                y = self.position[1]
+                y = self.position[0] + i * j
+                x = self.position[1]
 
                 if not (x in range(1, 9) and y in range(1, 9)):
                     break
@@ -158,8 +154,8 @@ class Rook(Piece):
                     self.legal_moves.append((y, x))
 
             for j in range(1, 8):
-                x = self.position[0]
-                y = self.position[1] + i * j
+                y = self.position[0]
+                x = self.position[1] + i * j
 
                 if not (x in range(1, 9) and y in range(1, 9)):
                     break
@@ -172,7 +168,6 @@ class Pawn(Piece):
         super().__init__(position, color, symbol, board, movesMade)
 
     def updateLegalMoves(self):
-
         self.legal_moves = []
         height = self.position[0]
         width = self.position[1]
