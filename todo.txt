@@ -1,0 +1,4 @@
+todos:
+1. Zrobić zbijanie
+2. Zadbać o nieprzeskakiwanie figur
+3. Dodać opcję szachowania
