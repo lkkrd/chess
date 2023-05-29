@@ -79,29 +79,62 @@ class Queen(Piece):
 
     def updateLegalMoves(self):
         self.legal_moves = []
-        for i in [-1, 0, 1]:
-            for j in [-1, 0, 1]:
-                # case ruchu poziomego
-                if i == 0 or j == 0:
-                    for k in range(1, 8):
-                        y = self.position[0] + i * k
-                        x = self.position[1] + j * k
+        for i in range(1, 9):
+            # case ruchu w dół
+            y = self.position[0] + i
+            x = self.position[1]
 
-                        if not (x in range(1, 9) and y in range(1, 9)):
-                            break
-                        else:
-                            self.legal_moves.append((y, x))
-        # case ruchu po przekątnej
-        for i in [-1, 1]:
-            for j in [-1, 1]:
-                for k in range(1, 8):
-                    y = self.position[0] + i * k
-                    x = self.position[1] + j * k
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
 
-                    if not (x in range(1, 9) and y in range(1, 9)):
-                        break
-                    else:
-                        self.legal_moves.append((y, x))
+            # case ruchu w górę
+            y = self.position[0] - i
+            x = self.position[1]
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w prawo
+            y = self.position[0]
+            x = self.position[1] + i
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w lewo
+            y = self.position[0]
+            x = self.position[1] - i
+
+            if (x in range(1, 9) and y in range(1, 9)):  # warunek dodania
+                self.legal_moves.append((y, x))
+
+            # case ruchu w prawy dół
+            y = self.position[0] + i
+            x = self.position[1] + i
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w lewy dół
+            y = self.position[0] + i
+            x = self.position[1] - i
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w prawą górę
+            y = self.position[0] - i
+            x = self.position[1] + i
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w lewą górę
+            y = self.position[0] - i
+            x = self.position[1] - i
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
 
 
 class Bishop(Piece):
