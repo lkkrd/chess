@@ -143,24 +143,36 @@ class Rook(Piece):
 
     def updateLegalMoves(self):
         self.legal_moves = []
-        for i in [-1, 1]:
-            for j in range(1, 8):
-                y = self.position[0] + i * j
-                x = self.position[1]
+        for j in range(1, 8):
+            # case ruchu w dół
+            y = self.position[0] + j
+            x = self.position[1]
 
-                if not (x in range(1, 9) and y in range(1, 9)):
-                    break
-                else:
-                    self.legal_moves.append((y, x))
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
 
-            for j in range(1, 8):
-                y = self.position[0]
-                x = self.position[1] + i * j
+            # case ruchu w górę
+            y = self.position[0] - j
+            x = self.position[1]
 
-                if not (x in range(1, 9) and y in range(1, 9)):
-                    break
-                else:
-                    self.legal_moves.append((y, x))
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w prawo
+            y = self.position[0]
+            x = self.position[1] + j
+
+            if (x in range(1, 9) and y in range(1, 9)):
+                self.legal_moves.append((y, x))
+
+            # case ruchu w lewo
+            y = self.position[0]
+            x = self.position[1] - j
+
+            if (x in range(1, 9) and y in range(1, 9)):  # warunek dodania
+                self.legal_moves.append((y, x))
+
+            # algorytm można przyspieszyć porzucając case po pierwszym niespełnionym warunku dodania
 
 
 class Pawn(Piece):

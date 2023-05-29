@@ -132,6 +132,7 @@ def getFigure(y1, x1):
 
 
 def showm(y1, x1):
+    getFigure(y1, x1).updateLegalMoves()
     print(f'{getFigure(y1, x1)} moves: {getFigure(y1, x1).legal_moves}')
 
 
