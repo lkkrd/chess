@@ -131,6 +131,10 @@ def getFigure(y1, x1):
     return board[y1][x1]
 
 
+def showm(y1, x1):
+    print(f'{getFigure(y1, x1)} moves: {getFigure(y1, x1).legal_moves}')
+
+
 printBoard()
 
 # Dlaczego obiekty nie wyświetlają się swoją postacią __str__?
